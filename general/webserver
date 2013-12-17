@@ -1,0 +1,21 @@
+#!/bin/bash
+shopt -s nocasematch
+
+if [[ $# == 0 ]];
+then
+    echo "No arguments supplied"
+    exit 1 
+fi
+
+if [[ $1 == "start" ]];
+then
+	echo "Starting webserver"
+	sudo systemctl start lighttpd
+fi
+if [[ $1 == "stop" ]];
+then
+	echo "Stopping webserver"
+	sudo systemctl stop lighttpd
+fi
+
+echo "Done."

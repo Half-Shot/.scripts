@@ -1,0 +1,24 @@
+#!/bin/bash
+SOUNDFONT=""
+OUTPUT=$(mktemp -u)
+FILE=""
+if [[ $# < 1 ]]; then
+	echo "Not enough arguments. See -h"
+	exit 0
+fi
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+	echo "First argument is a midi, second argument can be a soundfont.";
+	exit 0
+fi
+
+if [[ $# > 1 ]]; then
+	SOUNDFONT=$2
+	echo "Using " $SOUNDFONT " as the chosen soundfont."
+fi
+
+FILE=$1
+
+fluidsynth -F $OUTPUT $SOUNDFONT $FILE
+aplay $OUTPUT
+rm $OUTPUT

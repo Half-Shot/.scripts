@@ -1,0 +1,18 @@
+#!/bin/bash
+#Arg 1 is the path
+#Arg 2 is the find string
+#Arg 3 is the replace string
+
+if [[ $# < 3 ]]
+  then
+    echo "Need 3 argments"
+    echo "	Arg 1 is the path"
+    echo "	Arg 2 is the find string"
+    echo "	Arg 3 is the replace string"
+    exit 1 
+fi
+text1=$4
+text2=$5
+ls $1 | xargs sed -i '' "s/$text1/$text2/g"
+
+exit $?

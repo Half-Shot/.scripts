@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ $# < 1 ]]; then
+	echo "Not enough arguments";
+fi
+
+echo "Checking $1 for php files and errors."
+
+find $1 -iname "*.php" -exec php -l '{}' \;
