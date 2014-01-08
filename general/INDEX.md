@@ -14,3 +14,20 @@ built in.
 ####Requires:
 
       - root/sudo: Yes, will prompt
+
+##sshmounter
+Mounts sshfs locations quickly.
+Useful for people who want to mount certain directorys very quickly.
+MAKE SURE TO EDIT IT FOR RIGHT CONFIGURATION FIRST
+
+####Packages:
+	- A fairly up to date bash
+	- ssh (obviously)
+	- sshfs 
+
+####Requires:
+	
+	-root/sudo: No, unless you require permission for local 
+directorys
+	-configuration: Yes, inside file.
+
