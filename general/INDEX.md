@@ -27,7 +27,6 @@ MAKE SURE TO EDIT IT FOR RIGHT CONFIGURATION FIRST
 
 ####Requires:
 	
-	-root/sudo: No, unless you require permission for local 
-directorys
+	-root/sudo: Yes, umount permissions and creating directorys
 	-configuration: Yes, inside file.
 
