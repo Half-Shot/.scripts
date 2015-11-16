@@ -1,0 +1,32 @@
+#!/bin/env python3
+import argparse
+from os import system
+parser = argparse.ArgumentParser()
+parser.add_argument("source")
+parser.add_argument("tracklist")
+args = parser.parse_args()
+print(args)
+
+source = args.source
+f = open(args.tracklist,'r')
+tracklist = f.readlines()
+f.close()
+
+def cutfile(source,name,start,end):
+    name = name.replace('\n','')
+    filename = name.replace(' ','').replace("'",'').replace('"','').replace('(','').replace(')','') + ".ogg"
+    cmd = 'ffmpeg -y -i '+source+' -ss '+start+' -to '+end+' '+filename
+    system(cmd)
+
+start_time = ""
+next_name = ""
+for line in tracklist:
+    time,name = line.split(" ",1)
+    if start_time == "":
+        next_name = name
+        start_time = time
+        continue
+
+    cutfile(source,next_name,start_time,time)
+    next_name = name
+    start_time = time

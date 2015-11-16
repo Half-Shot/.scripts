@@ -1,0 +1,4 @@
+#!/bin/bash
+rm -R /home/will/.cache/session
+rm -R /home/will/.cache/sessions
+exit 0

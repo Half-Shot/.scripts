@@ -1,0 +1,47 @@
+#!/bin/python
+import urllib.request
+import json
+
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+STREAMERS = [("Limes","limealicious"),("Vinny","vinesauce"),("Joel","vargskelethor")]
+
+def getVine(streamer):
+    req = urllib.request.Request('https://api.twitch.tv/kraken/streams/{0}'.format(streamer))
+    streamStatus = 0
+    with urllib.request.urlopen(req) as response:
+        streamStatus = 1
+        data = response.read().decode()
+        jData = json.loads(data)
+        if jData['stream'] != None:
+            streamStatus = 2
+    return streamStatus
+
+def statusLine(streamers):
+    lines = []
+    line = ""
+    for streamer in streamers:
+        line += streamer[0] + ": "
+        status = getVine(streamer[1])
+        if status == 0:
+            print("Twitch not responding")
+            break
+        elif status == 1:
+            line += "×"
+        else:
+            line += bcolors.BOLD + "Streaming" + bcolors.ENDC
+        lines.append(line)
+        line = ""
+    print(' | '.join(lines))
+
+if __name__ == "__main__":
+    statusLine(STREAMERS)

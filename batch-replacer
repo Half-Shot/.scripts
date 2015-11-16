@@ -1,5 +1,5 @@
 #!/bin/bash
-#Arg 1 is the path
+#Arg 1 is the regex
 #Arg 2 is the find string
 #Arg 3 is the replace string
 

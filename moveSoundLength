@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function float_cond()
+{
+    local cond=0
+    if [[ $# -gt 0 ]]; then
+        cond=$(echo "$*" | bc -q 2>/dev/null)
+        if [[ -z "$cond" ]]; then cond=0; fi
+        if [[ "$cond" != 0  &&  "$cond" != 1 ]]; then cond=0; fi
+    fi
+    local stat=$((cond == 0))
+    return $stat
+}
+LEN=$(sox $1 -n stat 2>&1 | sed -n 's#^Length (seconds):[^0-9]*\([0-9.]*\)$#\1#p')
+LEN="0"$LEN
+if float_cond "$LEN < $2"; then
+	mv $1 ./discards/$(basename $1)
+	echo "Moved " $1
+fi

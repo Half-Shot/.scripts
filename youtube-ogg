@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ $# < 1 ]]; then
+	echo "Not enough arguments. See -h"
+	exit 0
+fi
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+	echo "All you need is the playlist id. Literally just that."
+	exit 0
+fi
+
+URL=$1
+youtube-dl -w -x --restrict-filenames --audio-format "vorbis" --audio-quality 0 -o "%(title)s.%(ext)s"  $URL

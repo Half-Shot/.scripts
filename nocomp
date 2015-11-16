@@ -1,0 +1,6 @@
+#!/bin/bash
+CMD=$1
+pkill compton
+"$CMD"
+compton --config /home/will/.i3/compton &
+

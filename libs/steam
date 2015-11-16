@@ -1,0 +1,2 @@
+#!/bin/zsh
+alias tf2="xdg-open steam://run/440"

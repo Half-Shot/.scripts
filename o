@@ -1,0 +1,12 @@
+#!/bin/bash
+CMD="$1"
+
+#Web Page
+if  [[ $CMD == http://* ]] ;
+then
+    (surf $CMD > /dev/null 2>&1) &
+    exit 0
+else
+    xdg-open $CMD > /dev/null 2>&1
+    exit $?
+fi

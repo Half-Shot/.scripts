@@ -1,0 +1,12 @@
+#!/bin/zsh
+source ~/.zshrc
+RAW=$(alias)
+
+echo $RAW | while read -r line ; do
+    if [[ $line != '_'* ]]; then
+	    cmd=${line%=*}
+	    echo $cmd
+    fi
+    # your code goes here
+done
+

@@ -1,1 +1,0 @@
-sudo screen -d -m -S ps3controller xboxdrv --detach-kernel-driver --silent

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ $# < 1 ]]; then
+	echo "Not enough arguments. See -h"
+	exit 0
+fi
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+	echo "All you need is a ogg file path. Literally just that."
+	exit 0
+fi
+OUTPUT=$(mktemp -u)
+FILE=$1
+#mpg123 -w $OUTPUT $FILE | aplay -f cdr $OUTPUT

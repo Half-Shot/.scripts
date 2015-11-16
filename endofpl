@@ -1,0 +1,16 @@
+#/bin/bash
+alias mpc="mpc -h 192.168.0.4"
+while true
+do
+	mpc idle
+	#Is playing
+	mpc status | grep playing >> /dev/null
+	STATUS=$?
+	mpc status | grep paused >> /dev/null
+	ISPAUSED=$?
+	if [[ $STATUS -eq "1" ]] && [[ $ISPAUSED -eq "1" ]] ; then
+	        mpc clear
+	        mpc listall | shuf -n 200 | mpc add
+		mpc play
+	fi
+done

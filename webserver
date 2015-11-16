@@ -3,14 +3,13 @@ shopt -s nocasematch
 
 if [[ $# == 0 ]];
 then
-    echo "No arguments supplied"
-    exit 1 
+    echo "Presuming start"
+    sudo systemctl start lighttpd
 fi
-
 if [[ $1 == "start" ]];
 then
-	echo "Starting webserver"
-	sudo systemctl start lighttpd
+    echo "Presuming start"
+    sudo systemctl start lighttpd
 fi
 if [[ $1 == "stop" ]];
 then

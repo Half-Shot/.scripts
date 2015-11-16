@@ -1,0 +1,51 @@
+#!/bin/env python3
+import configparser
+import sys
+from shutil import copyfile, move
+from os import listdir, system, remove
+from os.path import exists
+config = configparser.ConfigParser()
+root = sys.argv[1]
+config.read(sys.argv[1] + "/themer.conf")
+
+defaultCfg = {}
+configs = {}
+if "default" not in config:
+    print("You need a default section!")
+    sys.exit(1)
+for item in config["default"]:
+    defaultCfg[item] = config["default"][item]
+
+for conf in config:
+    if conf.lower() == 'default':
+        continue
+    if "path" not in config[conf]:
+        print("Template declaration lacks a path")
+        continue
+    path = config[conf]["path"]
+    configs[conf] = defaultCfg.copy()
+    for var in config[conf]:
+        if var == "path":
+            continue
+        configs[conf][var] = config[conf][var]
+
+for file in listdir(root+ "/templates"):
+    if "path" not in config[conf]:
+        print("Template file lacks a declaration in config")
+        continue
+    cfg = config[file]
+    vars = configs[file]
+    newdata = ""
+    with open(root+ "/templates/"+file, 'r+') as f:
+        for line in f:
+            for var in vars:
+                line = line.replace("$"+var,vars[var])
+            newdata += line
+
+    if exists(cfg["path"]):
+        copyfile(cfg["path"],root+"/backups/"+file)
+        remove(cfg["path"])
+    with open(cfg["path"], 'w') as f:
+        f.write(newdata)
+    if "restart" in cfg:
+        system(cfg["restart"])

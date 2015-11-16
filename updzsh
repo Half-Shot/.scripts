@@ -1,0 +1,16 @@
+FILE="/home/will/.zshrc"
+LOCAL=$(date +%s -r $FILE)
+COMMAND='echo $(date +%s -r '$FILE')'
+REMOTE=$(ssh 192.168.0.4 "$COMMAND")
+
+echo "Local:$LOCAL"
+echo "Remote:$REMOTE"
+
+if [[ $LOCAL > $REMOTE ]]; then
+	echo "Copying to Remote"
+	scp $FILE 192.168.0.4:$FILE
+else
+	echo "Copying to Local"
+	scp 192.168.0.4:$FILE $FILE
+
+fi

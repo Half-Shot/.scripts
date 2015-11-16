@@ -1,0 +1,20 @@
+vines()
+{
+	if [ "$1" = "joel" ]
+	then
+	 STREAM=vargskelethor
+	elif [ "$1" = "limes" ]
+         then
+	 STREAM=limealicious
+	else
+	 STREAM=vinesauce
+	fi
+
+	livestreamer --player "mpv -cache 512" http://www.twitch.tv/$STREAM best &
+
+#	if [ "$2" = "-c" ]
+#	then
+#	 irssi -c irc.twitch.tv -w oauth:bl4ac7c7ubozin2hsn1kk4np0rnugu -n molramsgaming
+#	fi
+}
+

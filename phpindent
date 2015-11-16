@@ -1,0 +1,2 @@
+#!/bin/bash
+find . -name '*.php' -printf "echo -e \"G=gg\n:wq\n\" | vim %p\n" | sh

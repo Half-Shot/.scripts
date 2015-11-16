@@ -1,0 +1,2 @@
+#!/bin/bash
+wget -q -O- http://unicode.bloople.net/ | xmllint --xpath "//html/body/p[1]" -

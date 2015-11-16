@@ -1,0 +1,11 @@
+#!/bin/bash
+pkill feh
+
+getWall(){
+	find /home/will/Pictures/Wallpapers/ ! -path . ! -path "*.old*" | shuf -n1
+}
+
+WALLPAPER1="$(getWall)"
+WALLPAPER2="$(getWall)"
+
+feh --bg-scale $WALLPAPER1 --bg-scale $WALLPAPER2

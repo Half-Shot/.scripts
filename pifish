@@ -1,19 +1,19 @@
 #!/bin/bash
-SRV="192.168.0.6"
-USER="user" #User to mount as
+SRV="192.168.0.10"
 LROOT="/mnt/sshfs" #Root location locally
-RDIRS="/home/user /home/http" #Each directory
+RDIRS="will@$SRV:/home/will will@$SRV:/home/http" #Each directory
 PERM="777"
 for dir in $RDIRS
 do
- LOCAL=$LROOT$dir
+ LOCALARR=(${dir//:/ })
+ LOCAL=$LROOT${LOCALARR[1]} 
  echo "Creating $LOCAL"
  mkdir -p $LOCAL &>/dev/null
  echo "Unmounting if it is already mounted."
  sudo umount $LOCAL &>/dev/null
  echo "Connecting to REMOTE:$dir"
  sudo chmod $PERM $LOCAL
- sshfs $USER@$SRV:$dir $LOCAL
+ sshfs $dir $LOCAL
  #Make it ok for users to open
  if [[ $? != 0 ]]; then
   echo "Connection failed for some reason :("

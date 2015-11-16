@@ -1,0 +1,5 @@
+#!/bin/zsh
+#Reload after edits
+alias reload=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
+
+alias nzsh="nano ~/.zshrc && reload"

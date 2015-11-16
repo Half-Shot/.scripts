@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+MAXUSAGE="16000" #16KB
+DL="http://ipv4.download.thinkbroadband.com/"
+SIZES=( 10 20 50 100 )
+OUTPUT=$(date +"%H,%M")
+USE=$(netuse)
+if [[ $1 != "-f" ]] && [[ $USE > $MAXUSAGE ]]; then
+	#No good
+	exit 42
+else
+	for i in "${SIZES[@]}"; do
+		PATH="$DL""$i""MB.zip"
+		TIME=$(echo $(($(/bin/date +%s%N)/1000000)))
+		/bin/curl -s $PATH > /dev/null
+		TIME=$(/usr/bin/expr $(echo $(($(/bin/date +%s%N)/1000000))) - $TIME)
+		OUTPUT="$OUTPUT,$TIME"
+	done
+	echo ${OUTPUT}
+fi

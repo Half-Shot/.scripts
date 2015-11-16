@@ -1,0 +1,36 @@
+#!/bin/zsh
+
+#
+# Functions for searching e621
+#
+#
+
+e621Page=-1
+e621Limit=5
+e621(){
+	SEARCHTAGS=$1
+	e621Page=$(expr $e621Page + 1)
+ 	DATA="'""$(curl -s "https://e621.net/post/index.json?tags=$SEARCHTAGS&limit=$e621Limit&rating=e&page=$e621Page")""'"
+	IMAGES=$(echo "import json; items=json.loads($DATA);\nfor item in items: print(item['file_url']);" |python -)
+	cd /tmp
+	echo $IMAGES |while read -r f
+	do
+		wget --quiet $f
+		FILENAME=$(basename "$f" )
+
+		feh $FILENAME &
+
+		FEHID=$!
+
+		echo "Keep?"
+
+		read RES
+
+		if [[ $RES = "y" ]]
+		then
+			echo "Saving"
+		fi
+		kill $FEHID
+	done
+	
+}

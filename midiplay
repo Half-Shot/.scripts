@@ -1,5 +1,5 @@
 #!/bin/bash
-SOUNDFONT=""
+SOUNDFONT="/home/will/Soundfonts/The_Nes_Soundfont.sf2" #Gonna be bad and add one from my user area
 OUTPUT=$(mktemp -u)
 FILE=""
 if [[ $# < 1 ]]; then

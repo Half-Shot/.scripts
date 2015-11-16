@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+
+upload() {
+    url=$(curl -sF c=@$@ -F p=1 -w "%{redirect_url}" 'https://ptpb.pw/?r=1' -o /dev/stderr)
+    rm $@
+    if [[ -n $url ]]; then
+        notify-send "Screenshot uploaded" "$url"
+    else
+        notify-send "Screenshot upload failed"
+    fi
+    printf $url | xsel -l /dev/null -b
+}
+
+choices="
+f fullscreen
+p partial
+uf upload fullscreen
+up upload partial
+"
+
+choice=$(bemenu <<< "$choices")
+filename=~/$(date +%F-%T).png
+
+case $choice in
+    f*|uf*)
+        maim --hidecursor $filename
+        mpv --really-quiet /usr/share/sounds/freedesktop/stereo/screen-capture.oga &
+        if [[ $choice = uf* ]]; then upload $filename; fi;;
+    p*|up*)
+        maim --hidecursor --nokeyboard -l -d 1 -s $filename
+        mpv --really-quiet /usr/share/sounds/freedesktop/stereo/screen-capture.oga &
+        if [[ $choice = up* ]]; then upload $filename; fi;;
+esac
+

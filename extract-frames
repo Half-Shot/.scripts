@@ -1,0 +1,43 @@
+#!/bin/bash
+
+if [[ $1 == "-h" || $1 == "--help" ]]; then
+	echo "Argument 1: Input File | inputfile.avi"
+	echo "Argument 2: Output File | image-%3d.jpeg"
+	echo "Argument 3: [Start Time] | 01:30:14 | default 0:00:00"
+	echo "Argument 4: [Duration] (in seconds) | 40 | default 15"
+	echo "Argument 5: [NumberOfFrames] | 120 | default not-set"
+	echo "Argument 6: [FramesPerSecond] | 15 | default not-set"
+	exit 0
+fi
+
+if [[ $# < 2 ]]; then
+	echo "Not enough arguments. See -h"
+	exit 0
+fi
+
+Arg1="-i $1"
+Arg2=$2
+Arg3="-ss 0:00:00"
+Arg4="-t 15"
+Arg5=""
+Arg6=""
+Executable="ffmpeg"
+if [[ -n $3 ]]; then
+	Arg3="-ss $3"
+fi
+
+if [[ -n $4 ]]; then
+	Arg4="-t $4"
+fi
+
+if [[ -n $5 ]]; then
+	Arg5="-vframes $5"
+fi
+
+
+if [[ -n $6 ]]; then
+	Arg6="-r $6"
+fi
+
+
+$Executable $Arg1 $Arg3 $Arg4 $Arg5 $Arg6 $Arg2

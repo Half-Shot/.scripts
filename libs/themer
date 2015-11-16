@@ -1,0 +1,4 @@
+#!/bin/zsh
+THEMER_DIR="$HOME/.themer"
+alias threld="themer $THEMER_DIR"
+alias thi3="nano $THEMER_DIR/templates/i3.conf"

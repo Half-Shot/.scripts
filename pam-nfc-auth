@@ -1,0 +1,23 @@
+#!/bin/env python3
+from subprocess import check_output, CalledProcessError
+from locale import getdefaultlocale
+
+UID = '5b  b8  f1  0b'
+Status = -1
+while Status == -1:
+	try:
+		CommandOutput = check_output(["/bin/nfc-poll"],shell=True)
+		encoding = getdefaultlocale()[1]
+		CommandOutput = CommandOutput.decode(encoding)
+		if UID in CommandOutput:
+			Status = 0
+		else:
+			Status = 1
+	except CalledProcessError:
+		pass
+if Status == 0:
+	print("Auth Succeded")
+elif Status == 1:
+	print("Auth Failed")
+
+exit(Status)

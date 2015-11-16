@@ -1,0 +1,5 @@
+#!/bin/zsh
+BYTESA=$(ifstat enp6s0 -j | jq .kernel.enp6s0.rx_bytes)
+sleep 1
+BYTESB=$(ifstat enp6s0 -j | jq .kernel.enp6s0.rx_bytes)
+expr $BYTESB - $BYTESA

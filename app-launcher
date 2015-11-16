@@ -1,0 +1,9 @@
+#!/bin/zsh
+setopt
+setopt aliases
+source ~/.zshrc
+APPS=$(echo "${(k)commands} ${(k)aliases} ")
+APPS=$(echo $APPS | tr " " "\n")
+CHOICE=$(bemenu <<< "$APPS")
+$CHOICE
+#nohup $CHOICE
