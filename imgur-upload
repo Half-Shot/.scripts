@@ -1,0 +1,17 @@
+#!/bin/bash
+opt1="Select Area"
+opt2="Whole Screen"
+file="/tmp/scr.png"
+scrcmd="gnome-screenshot -f $file"
+icon="/home/will/Scripts/imgur_icon.jpg"
+int=$(zenity --height=275 --list --radiolist --text 'Select the interface to be used:' --column 'Select...' --column 'Interface Name' FALSE "$opt1" TRUE "$opt2")
+echo "Chosen option: "$int
+if [[ $int == $opt1 ]]; then
+    scrcmd="$scrcmd -a"
+fi
+$($scrcmd)
+if [[ $file ]]; then
+    url=$(imgur $file)
+    notify-send -t 5000 -a Screenshot -i $icon "Screenshot saved to $url."
+    xsel -b -i $url
+fi

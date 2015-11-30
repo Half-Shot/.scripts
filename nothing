@@ -1,0 +1,9 @@
+#!/bin/bash
+
+MESSAGE="incorrect equations."
+
+function spit(){
+	echo $MESSAGE
+}
+
+spit
